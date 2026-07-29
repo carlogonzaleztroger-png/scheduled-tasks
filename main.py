@@ -24,12 +24,12 @@ text = f"{response.json()["city"]["name"]}\n"
 will_rain = False
 for item in weather_data:
     if int(item["weather"][0]["id"]) < 700:
-        will_rain = True
+        will_rain = False
     text += (f"{item["dt_txt"]}: "
              f"{item["weather"][0]["description"]} "
              f"({item["weather"][0]["id"]})\n"
              )
-print(text)
+# print(text)
 if will_rain:
     with smtplib.SMTP('smtp.gmail.com') as connection:
         connection.starttls()
