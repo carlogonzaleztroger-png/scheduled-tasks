@@ -21,15 +21,15 @@ response.raise_for_status()
 weather_data = response.json()["list"]
 text = f"{response.json()["city"]["name"]}\n"
 
-will_rain = False
+will_rain = True
 for item in weather_data:
     if int(item["weather"][0]["id"]) < 700:
-        will_rain = False
+        will_rain = True
     text += (f"{item["dt_txt"]}: "
              f"{item["weather"][0]["description"]} "
              f"({item["weather"][0]["id"]})\n"
              )
-# print(text)
+
 if will_rain:
     with smtplib.SMTP('smtp.gmail.com') as connection:
         connection.starttls()
@@ -37,5 +37,5 @@ if will_rain:
         connection.sendmail(
             from_addr=my_email,
             to_addrs=my_email,
-            msg=f"Subject:Bring an Umbrella!\n\n{text}"
+            msg=f"Subject:Bring an Umbrella!\n\n{text}".encode("utf-8")
         )
