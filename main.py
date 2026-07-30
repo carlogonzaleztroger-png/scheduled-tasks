@@ -20,8 +20,8 @@ parameters = {
 response = requests.get(OWM_Endpoint, params=parameters)
 response.raise_for_status()
 weather_data = response.json()["list"]
-now = dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-text = f"{now} {response.json()["city"]["name"]} forecast:\n\n"
+now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+text = f"{now} (UTC): {response.json()["city"]["name"]} forecast:\n\n"
 
 for item in weather_data:
     text += (f"{item["dt_txt"]}: "
